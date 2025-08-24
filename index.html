@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍦 ร้านโยเกิร์ตน่ารัก</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+        body { font-family: 'Kanit', sans-serif; }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff0f5 100%);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+        }
+        
+        .selected {
+            background: linear-gradient(135deg, #ffc0cb 0%, #ffb6c1 100%);
+            border-color: #ff69b4;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+        
+        .modal {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .animate-bounce-in {
+            animation: bounceIn 0.5s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg border-b-4 border-pink-200 fixed w-full top-0 z-40">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showHomePage()">
+                    <div class="text-3xl floating">🍦</div>
+                    <h1 class="text-2xl font-bold text-pink-600">ร้านโยเกิร์ตน่ารัก</h1>
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="showHomePage()" class="text-pink-600 hover:text-pink-800 font-medium px-4 py-2 rounded-lg hover:bg-pink-50 transition-colors">
+                        🏠 หน้าแรก
+                    </button>
+                    <button onclick="showProductsPage()" class="text-pink-600 hover:text-pink-800 font-medium px-4 py-2 rounded-lg hover:bg-pink-50 transition-colors">
+                        🛍️ สินค้า
+                    </button>
+                    <button onclick="showManagePage()" class="btn-primary text-white px-4 py-2 rounded-lg font-medium">
+                        ⚙️ จัดการ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="homePage" class="page-content">
+        <!-- Hero Section -->
+        <section class="hero-bg pt-24 pb-16">
+            <div class="container mx-auto px-4 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 floating">
+                        🍦 ยินดีต้อนรับสู่ร้านโยเกิร์ตน่ารัก
+                    </h1>
+                    <p class="text-xl text-white mb-8 opacity-90">
+                        โยเกิร์ตสดใหม่ รสชาติหลากหลาย ทำจากวัตถุดิบคุณภาพ
+                    </p>
+                    <button onclick="showProductsPage()" class="btn-primary text-white px-8 py-4 rounded-full text-lg font-medium inline-flex items-center space-x-2">
+                        <span>🛍️</span>
+                        <span>เลือกซื้อสินค้า</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">🌟 จุดเด่นของเรา</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-6 bg-white rounded-2xl shadow-lg border-2 border-pink-100">
+                        <div class="text-5xl mb-4">🥛</div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">สดใหม่ทุกวัน</h3>
+                        <p class="text-gray-600">ผลิตใหม่ทุกวัน ด้วยนมคุณภาพสูง</p>
+                    </div>
+                    <div class="text-center p-6 bg-white rounded-2xl shadow-lg border-2 border-pink-100">
+                        <div class="text-5xl mb-4">🍓</div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">รสชาติหลากหลาย</h3>
+                        <p class="text-gray-600">มีให้เลือกมากมาย ตั้งแต่รสคลาสสิกถึงรสใหม่</p>
+                    </div>
+                    <div class="text-center p-6 bg-white rounded-2xl shadow-lg border-2 border-pink-100">
+                        <div class="text-5xl mb-4">💝</div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">บริการดี</h3>
+                        <p class="text-gray-600">ใส่ใจทุกรายละเอียด เพื่อความพึงพอใจ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Products Page -->
+    <div id="productsPage" class="page-content hidden pt-24">
+        <div class="container mx-auto px-4 py-8">
+            <!-- Selected Products Summary -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 border-2 border-pink-100">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4 flex items-center">
+                    <span class="text-2xl mr-2">🛒</span>
+                    สินค้าที่เลือก
+                </h2>
+                <div id="selectedProducts" class="text-gray-600">
+                    ยังไม่ได้เลือกสินค้า
+                </div>
+                <div class="mt-4 flex space-x-3">
+                    <button onclick="clearSelection()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-full text-sm transition-colors">
+                        ล้างการเลือก
+                    </button>
+                    <button onclick="checkout()" class="btn-primary text-white px-6 py-2 rounded-full text-sm">
+                        สั่งซื้อ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="productsGrid">
+                <!-- Products will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Management Page -->
+    <div id="managePage" class="page-content hidden pt-24">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between mb-8">
+                <h1 class="text-3xl font-bold text-pink-600 flex items-center">
+                    <span class="text-4xl mr-3">⚙️</span>
+                    จัดการสินค้า
+                </h1>
+                <button onclick="openAddModal()" class="btn-primary text-white px-6 py-3 rounded-full font-medium flex items-center space-x-2">
+                    <span class="text-xl">+</span>
+                    <span>เพิ่มสินค้าใหม่</span>
+                </button>
+            </div>
+
+            <!-- Management Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="manageGrid">
+                <!-- Management items will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="productModal" class="fixed inset-0 modal hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 m-4 max-w-lg w-full animate-bounce-in border-4 border-pink-200 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h3 id="modalTitle" class="text-2xl font-bold text-pink-600 flex items-center">
+                    <span class="text-3xl mr-2">🍨</span>
+                    เพิ่มสินค้าใหม่
+                </h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+            </div>
+            
+            <form onsubmit="saveProduct(event)">
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">ชื่อสินค้า</label>
+                    <input type="text" id="productName" class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:outline-none transition-colors" placeholder="เช่น โยเกิร์ตสตรอเบอร์รี่" required>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">ราคา (บาท)</label>
+                    <input type="number" id="productPrice" class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:outline-none transition-colors" placeholder="เช่น 45" required>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">คำอธิบาย</label>
+                    <textarea id="productDescription" class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:outline-none transition-colors" rows="3" placeholder="อธิบายรายละเอียดสินค้า"></textarea>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">รูปภาพสินค้า</label>
+                    <div class="border-2 border-dashed border-pink-200 rounded-xl p-6 text-center">
+                        <input type="file" id="productImage" accept="image/*" onchange="previewImage(event)" class="hidden">
+                        <div id="imagePreview" class="mb-4">
+                            <div class="text-4xl mb-2">📷</div>
+                            <p class="text-gray-500">คลิกเพื่อเลือกรูปภาพ</p>
+                        </div>
+                        <button type="button" onclick="document.getElementById('productImage').click()" class="bg-pink-100 hover:bg-pink-200 text-pink-600 px-4 py-2 rounded-lg transition-colors">
+                            เลือกรูปภาพ
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">เลือกไอคอน</label>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button type="button" onclick="selectIcon('🍓')" class="icon-btn p-3 text-2xl border-2 border-gray-200 rounded-lg hover:border-pink-400 transition-colors">🍓</button>
+                        <button type="button" onclick="selectIcon('🫐')" class="icon-btn p-3 text-2xl border-2 border-gray-200 rounded-lg hover:border-pink-400 transition-colors">🫐</button>
+                        <button type="button" onclick="selectIcon('🍫')" class="icon-btn p-3 text-2xl border-2 border-gray-200 rounded-lg hover:border-pink-400 transition-colors">🍫</button>
+                        <button type="button" onclick="selectIcon('🍦')" class="icon-btn p-3 text-2xl border-2 border-gray-200 rounded-lg hover:border-pink-400 transition-colors">🍦</button>
+                        <button type="button" onclick="selectIcon('🥭')" class="icon-btn p-3 text-2xl border-2 border-gray-200 rounded-lg hover:border-pink-400 transition-colors">🥭</button>
+                        <button type="button" onclick="selectIcon('🍌')" class="icon-btn p-3 text-2xl border-2 border-gray-200 rounded-lg hover:border-pink-400 transition-colors">🍌</button>
+                        <button type="button" onclick="selectIcon('🥝')" class="icon-btn p-3 text-2xl border-2 border-gray-200 rounded-lg hover:border-pink-400 transition-colors">🥝</button>
+                        <button type="button" onclick="selectIcon('🍑')" class="icon-btn p-3 text-2xl border-2 border-gray-200 rounded-lg hover:border-pink-400 transition-colors">🍑</button>
+                    </div>
+                    <input type="hidden" id="selectedIcon" value="🍦">
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button type="button" onclick="closeModal()" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 rounded-xl font-medium transition-colors">
+                        ยกเลิก
+                    </button>
+                    <button type="submit" class="flex-1 btn-primary text-white py-3 rounded-xl font-medium">
+                        บันทึก
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample data
+        let products = [
+            { 
+                id: 1, 
+                name: 'โยเกิร์ตสตรอเบอร์รี่', 
+                price: 45, 
+                description: 'โยเกิร์ตรสสตรอเบอร์รี่สดใหม่ หวานหอม เปรื้ยวนิดๆ',
+                icon: '🍓', 
+                image: null,
+                selected: false,
+                quantity: 0
+            },
+            { 
+                id: 2, 
+                name: 'โยเกิร์ตบลูเบอร์รี่', 
+                price: 50, 
+                description: 'โยเกิร์ตรสบลูเบอร์รี่ อุดมไปด้วยแอนโธไซยานิน',
+                icon: '🫐', 
+                image: null,
+                selected: false,
+                quantity: 0
+            },
+            { 
+                id: 3, 
+                name: 'โยเกิร์ตช็อกโกแลต', 
+                price: 55, 
+                description: 'โยเกิร์ตรสช็อกโกแลตเข้มข้น หอมหวานน่าทาน',
+                icon: '🍫', 
+                image: null,
+                selected: false,
+                quantity: 0
+            },
+            { 
+                id: 4, 
+                name: 'โยเกิร์ตวนิลา', 
+                price: 40, 
+                description: 'โยเกิร์ตรสวนิลาคลาสสิก หอมนุ่ม รสชาติกลมกล่อม',
+                icon: '🍦', 
+                image: null,
+                selected: false,
+                quantity: 0
+            }
+        ];
+        
+        let editingId = null;
+        let currentPage = 'home';
+
+        // Page Navigation
+        function showHomePage() {
+            hideAllPages();
+            document.getElementById('homePage').classList.remove('hidden');
+            currentPage = 'home';
+        }
+
+        function showProductsPage() {
+            hideAllPages();
+            document.getElementById('productsPage').classList.remove('hidden');
+            currentPage = 'products';
+            renderProducts();
+        }
+
+        function showManagePage() {
+            hideAllPages();
+            document.getElementById('managePage').classList.remove('hidden');
+            currentPage = 'manage';
+            renderManagement();
+        }
+
+        function hideAllPages() {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+        }
+
+        // Render products for shopping
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card ${product.selected ? 'selected' : ''} rounded-2xl p-6 border-2 border-pink-200 transition-all">
+                    <div class="text-center mb-4">
+                        ${product.image ? 
+                            `<img src="${product.image}" alt="${product.name}" class="image-preview mx-auto mb-3">` :
+                            `<div class="text-6xl mb-3">${product.icon}</div>`
+                        }
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mb-3">${product.description}</p>
+                        <div class="text-2xl font-bold text-pink-600 mb-4">฿${product.price}</div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-center space-x-3">
+                            <button onclick="decreaseQuantity(${product.id})" class="bg-pink-100 hover:bg-pink-200 text-pink-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">-</button>
+                            <span class="text-lg font-semibold w-8 text-center">${product.quantity}</span>
+                            <button onclick="increaseQuantity(${product.id})" class="bg-pink-100 hover:bg-pink-200 text-pink-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">+</button>
+                        </div>
+                        
+                        <button onclick="toggleProduct(${product.id})" class="w-full ${product.selected ? 'bg-pink-500 hover:bg-pink-600 text-white' : 'bg-pink-100 hover:bg-pink-200 text-pink-600'} py-2 rounded-lg font-medium transition-colors">
+                            ${product.selected ? '✓ เลือกแล้ว' : 'เลือกสินค้า'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            updateSelectedProducts();
+        }
+
+        // Render management view
+        function renderManagement() {
+            const grid = document.getElementById('manageGrid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card rounded-2xl p-6 border-2 border-pink-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            ${product.image ? 
+                                `<img src="${product.image}" alt="${product.name}" class="w-12 h-12 object-cover rounded-lg">` :
+                                `<span class="text-3xl">${product.icon}</span>`
+                            }
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-700">${product.name}</h3>
+                                <p class="text-pink-600 font-bold">฿${product.price}</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="editProduct(${product.id})" class="text-blue-500 hover:text-blue-700 text-xl p-2 hover:bg-blue-50 rounded-lg transition-colors" title="แก้ไข">
+                                ✏️
+                            </button>
+                            <button onclick="deleteProduct(${product.id})" class="text-red-500 hover:text-red-700 text-xl p-2 hover:bg-red-50 rounded-lg transition-colors" title="ลบ">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">${product.description}</p>
+                </div>
+            `).join('');
+        }
+
+        // Product quantity functions
+        function increaseQuantity(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                product.quantity++;
+                if (product.quantity > 0 && !product.selected) {
+                    product.selected = true;
+                }
+                renderProducts();
+            }
+        }
+
+        function decreaseQuantity(id) {
+            const product = products.find(p => p.id === id);
+            if (product && product.quantity > 0) {
+                product.quantity--;
+                if (product.quantity === 0) {
+                    product.selected = false;
+                }
+                renderProducts();
+            }
+        }
+
+        function toggleProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                product.selected = !product.selected;
+                if (product.selected && product.quantity === 0) {
+                    product.quantity = 1;
+                } else if (!product.selected) {
+                    product.quantity = 0;
+                }
+                renderProducts();
+            }
+        }
+
+        // Update selected products display
+        function updateSelectedProducts() {
+            const selectedList = products.filter(p => p.selected && p.quantity > 0);
+            const display = document.getElementById('selectedProducts');
+            
+            if (selectedList.length === 0) {
+                display.innerHTML = 'ยังไม่ได้เลือกสินค้า';
+            } else {
+                const total = selectedList.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+                display.innerHTML = `
+                    <div class="space-y-2">
+                        ${selectedList.map(p => 
+                            `<div class="flex justify-between items-center bg-pink-50 p-3 rounded-lg">
+                                <span class="flex items-center space-x-2">
+                                    <span>${p.icon}</span>
+                                    <span>${p.name}</span>
+                                    <span class="text-gray-500">x${p.quantity}</span>
+                                </span>
+                                <span class="font-semibold text-pink-600">฿${p.price * p.quantity}</span>
+                            </div>`
+                        ).join('')}
+                        <div class="border-t pt-2 mt-3">
+                            <div class="flex justify-between items-center font-bold text-lg">
+                                <span>รวมทั้งหมด:</span>
+                                <span class="text-pink-600">฿${total}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Clear selection
+        function clearSelection() {
+            products.forEach(p => {
+                p.selected = false;
+                p.quantity = 0;
+            });
+            renderProducts();
+        }
+
+        // Checkout function
+        function checkout() {
+            const selectedList = products.filter(p => p.selected && p.quantity > 0);
+            if (selectedList.length === 0) {
+                alert('กรุณาเลือกสินค้าก่อนสั่งซื้อ');
+                return;
+            }
+            
+            const total = selectedList.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+            alert(`สั่งซื้อสำเร็จ!\nยอดรวม: ฿${total}\nขอบคุณที่ใช้บริการ 🙏`);
+            clearSelection();
+        }
+
+        // Image preview function
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview" class="image-preview mx-auto mb-2">
+                        <p class="text-green-600 text-sm">รูปภาพที่เลือก: ${file.name}</p>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Modal functions
+        function openAddModal() {
+            editingId = null;
+            document.getElementById('modalTitle').innerHTML = '<span class="text-3xl mr-2">🍨</span>เพิ่มสินค้าใหม่';
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productDescription').value = '';
+            document.getElementById('productImage').value = '';
+            document.getElementById('selectedIcon').value = '🍦';
+            document.getElementById('imagePreview').innerHTML = `
+                <div class="text-4xl mb-2">📷</div>
+                <p class="text-gray-500">คลิกเพื่อเลือกรูปภาพ</p>
+            `;
+            resetIconSelection();
+            document.getElementById('productModal').classList.remove('hidden');
+            document.getElementById('productModal').classList.add('flex');
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                editingId = id;
+                document.getElementById('modalTitle').innerHTML = '<span class="text-3xl mr-2">✏️</span>แก้ไขสินค้า';
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productDescription').value = product.description;
+                document.getElementById('selectedIcon').value = product.icon;
+                
+                if (product.image) {
+                    document.getElementById('imagePreview').innerHTML = `
+                        <img src="${product.image}" alt="Preview" class="image-preview mx-auto mb-2">
+                        <p class="text-green-600 text-sm">รูปภาพปัจจุบัน</p>
+                    `;
+                }
+                
+                resetIconSelection();
+                selectIcon(product.icon);
+                document.getElementById('productModal').classList.remove('hidden');
+                document.getElementById('productModal').classList.add('flex');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+            document.getElementById('productModal').classList.remove('flex');
+        }
+
+        function selectIcon(icon) {
+            document.getElementById('selectedIcon').value = icon;
+            document.querySelectorAll('.icon-btn').forEach(btn => {
+                btn.classList.remove('border-pink-400', 'bg-pink-50');
+                btn.classList.add('border-gray-200');
+            });
+            event.target.classList.remove('border-gray-200');
+            event.target.classList.add('border-pink-400', 'bg-pink-50');
+        }
+
+        function resetIconSelection() {
+            document.querySelectorAll('.icon-btn').forEach(btn => {
+                btn.classList.remove('border-pink-400', 'bg-pink-50');
+                btn.classList.add('border-gray-200');
+            });
+        }
+
+        function saveProduct(event) {
+            event.preventDefault();
+            const name = document.getElementById('productName').value;
+            const price = parseInt(document.getElementById('productPrice').value);
+            const description = document.getElementById('productDescription').value;
+            const icon = document.getElementById('selectedIcon').value;
+            const imageFile = document.getElementById('productImage').files[0];
+            
+            let imageData = null;
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageData = e.target.result;
+                    saveProductData(name, price, description, icon, imageData);
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                // Keep existing image if editing and no new image selected
+                if (editingId) {
+                    const existingProduct = products.find(p => p.id === editingId);
+                    imageData = existingProduct ? existingProduct.image : null;
+                }
+                saveProductData(name, price, description, icon, imageData);
+            }
+        }
+
+        function saveProductData(name, price, description, icon, image) {
+            if (editingId) {
+                const product = products.find(p => p.id === editingId);
+                if (product) {
+                    product.name = name;
+                    product.price = price;
+                    product.description = description;
+                    product.icon = icon;
+                    if (image !== null) {
+                        product.image = image;
+                    }
+                }
+            } else {
+                const newId = Math.max(...products.map(p => p.id), 0) + 1;
+                products.push({
+                    id: newId,
+                    name: name,
+                    price: price,
+                    description: description,
+                    icon: icon,
+                    image: image,
+                    selected: false,
+                    quantity: 0
+                });
+            }
+            
+            if (currentPage === 'manage') {
+                renderManagement();
+            } else if (currentPage === 'products') {
+                renderProducts();
+            }
+            closeModal();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('คุณต้องการลบสินค้านี้หรือไม่?')) {
+                products = products.filter(p => p.id !== id);
+                if (currentPage === 'manage') {
+                    renderManagement();
+                } else if (currentPage === 'products') {
+                    renderProducts();
+                }
+            }
+        }
+
+        // Initialize
+        showHomePage();
+
+        // Firebase configuration (for future implementation)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAupj1aqRX7lZG-hwR6_Zr-d2WZZuamW54",
+            authDomain: "yoghurtnongtan.firebaseapp.com",
+            projectId: "yoghurtnongtan",
+            storageBucket: "yoghurtnongtan.firebasestorage.app",
+            messagingSenderId: "313301441385",
+            appId: "1:313301441385:web:9614b235aebd7bffb93bf8",
+            measurementId: "G-G4PD1KFVRK"
+        };
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9712515e05617335',t:'MTc1NTUyOTYxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
